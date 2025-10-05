@@ -1,8 +1,12 @@
 package veterinaria.principal;
 
+
 import veterinaria.gestor.Veterinaria;
 import veterinaria.sistema.*;
 import veterinaria.servicios.*;
+import veterinaria.factoryM.MascotaFactory;
+import veterinaria.factoryM.ServicioFactory;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -87,16 +91,11 @@ public class Main {
         System.out.print("Especie (1=Perro / 2=Gato): ");
         int tipo = leerEntero("");
 
-        Mascota mascota;
-        if (tipo == 1) {
-            mascota = new Perro(nombre, edad);
-        } else if (tipo == 2) {
-            mascota = new Gato(nombre, edad);
-        } else {
+        Mascota mascota = MascotaFactory.crearMascota(tipo, nombre, edad);
+        if (mascota == null) {
             System.out.println("Especie inválida. No se registró la mascota.");
             return;
         }
-
         vet.registrarMascota(mascota);
         System.out.println("Mascota registrada: " + mascota);
     }
@@ -123,13 +122,7 @@ public class Main {
 
         System.out.println("Tipo de servicio (1=Vacunación / 2=Consulta / 3=Estética): ");
         int tipoServicio = leerEntero("");
-        Servicio servicio = switch (tipoServicio) {
-            case 1 -> new Vacunacion();
-            case 2 -> new Consulta();
-            case 3 -> new Estetica();
-            default -> null;
-        };
-
+        Servicio servicio = ServicioFactory.crearServicio(tipoServicio);
         if (servicio == null) {
             System.out.println("Servicio inválido.");
             return;
@@ -251,10 +244,8 @@ public class Main {
         System.out.print("Especie (1=Perro / 2=Gato): ");
         int tipo = leerEntero("");
 
-        Mascota mascota;
-        if (tipo == 1) mascota = new Perro(nombre, edad);
-        else if (tipo == 2) mascota = new Gato(nombre, edad);
-        else {
+        Mascota mascota = MascotaFactory.crearMascota(tipo, nombre, edad);
+        if (mascota == null) {
             System.out.println("Especie inválida.");
             return null;
         }
