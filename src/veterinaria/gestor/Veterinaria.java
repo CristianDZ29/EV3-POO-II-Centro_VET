@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Veterinaria {
 
-    // Patrón Singleton
+
     private static Veterinaria instance;
 
     private final List<Mascota> mascotas;
@@ -42,7 +42,7 @@ public class Veterinaria {
     }
 
     public List<Mascota> getMascotas() {
-        return mascotas; // ← Este es el método que faltaba
+        return mascotas;
     }
 
     // ============================================================
